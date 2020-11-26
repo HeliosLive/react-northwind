@@ -14,7 +14,13 @@ export default (state, action) => {
     case SET_FILTER_CATEGORY:
       return {
         ...state,
-        filteredCategories: action.payload,
+        filteredCategories: state.categories.filter((ctg) => {
+          return (
+            action.payload.filter(function (selections) {
+              return selections === ctg.id;
+            }).length !== 0
+          );
+        }),
       };
     case RESET_FILTER_CATEGORY:
       return {

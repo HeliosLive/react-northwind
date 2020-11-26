@@ -28,17 +28,9 @@ const CategoryState = (props) => {
   // Set Filtered Categories
   const setFilteredCategories = async (selectedCategories) => {
     if (selectedCategories.length > 0) {
-      const filteredArray = state.categories.filter(function (Categories) {
-        return (
-          selectedCategories.filter(function (selections) {
-            return selections === Categories.id;
-          }).length !== 0
-        );
-      });
-
       dispatch({
         type: SET_FILTER_CATEGORY,
-        payload: filteredArray,
+        payload: selectedCategories,
       });
     } else {
       clearFilteredCategories();
