@@ -23,12 +23,15 @@ export default (state, action) => {
     case DECREASE_ITEM:
       return {
         ...state,
-        items: action.payload,
+        items: state.items.map((item) =>
+          item.id === action.payload.id ? action.payload : item
+        ),
       };
     case REMOVE_FROM_CART:
       return {
         ...state,
         items: action.payload,
+        items: state.items.filter((item) => item.id !== action.payload),
       };
     case CLEAR_CART:
       return {

@@ -36,11 +36,11 @@ const CartState = (props) => {
   // Increase Items from Cart
   const increaseItems = (id) => {
     const index = state.items.findIndex((el) => el.id === id);
-    const newItem = {
-      ...state.items[index],
-      quantity: state.items[index].quantity + 1,
-    };
     if (index > -1) {
+      const newItem = {
+        ...state.items[index],
+        quantity: state.items[index].quantity + 1,
+      };
       dispatch({
         type: INCREASE_ITEM,
         payload: newItem,
@@ -52,14 +52,17 @@ const CartState = (props) => {
   const decreaseItems = (id) => {
     const index = state.items.findIndex((el) => el.id === id);
     if (index > -1) {
-      state.items[index].quantity = state.items[index].quantity - 1;
+      const newItem = {
+        ...state.items[index],
+        quantity: state.items[index].quantity - 1,
+      };
 
-      if (state.items[index].quantity === 0) {
+      if (newItem.quantity === 0) {
         removeFromCart(id);
       } else {
         dispatch({
           type: DECREASE_ITEM,
-          payload: state.items,
+          payload: newItem,
         });
       }
     }
@@ -67,14 +70,10 @@ const CartState = (props) => {
 
   // Remove from Cart
   const removeFromCart = (id) => {
-    const index = state.items.findIndex((el) => el.id === id);
-    if (index > -1) {
-      state.items.splice(index, 1);
-      dispatch({
-        type: REMOVE_FROM_CART,
-        payload: state.items,
-      });
-    }
+    dispatch({
+      type: REMOVE_FROM_CART,
+      payload: id,
+    });
   };
 
   // Clear Cart
