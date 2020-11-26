@@ -49,7 +49,7 @@ const ProductState = (props) => {
       filteredArray = resp.data.filter(function (products) {
         return (
           categoryId.filter(function (selections) {
-            return selections == products.categoryId;
+            return selections === products.categoryId;
           }).length !== 0
         );
       });

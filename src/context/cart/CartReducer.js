@@ -16,7 +16,9 @@ export default (state, action) => {
     case INCREASE_ITEM:
       return {
         ...state,
-        items: action.payload,
+        items: state.items.map((item) =>
+          item.id === action.payload.id ? action.payload : item
+        ),
       };
     case DECREASE_ITEM:
       return {

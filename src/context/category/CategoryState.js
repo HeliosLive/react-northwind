@@ -31,7 +31,7 @@ const CategoryState = (props) => {
       const filteredArray = state.categories.filter(function (Categories) {
         return (
           selectedCategories.filter(function (selections) {
-            return selections == Categories.id;
+            return selections === Categories.id;
           }).length !== 0
         );
       });

@@ -36,11 +36,14 @@ const CartState = (props) => {
   // Increase Items from Cart
   const increaseItems = (id) => {
     const index = state.items.findIndex((el) => el.id === id);
+    const newItem = {
+      ...state.items[index],
+      quantity: state.items[index].quantity + 1,
+    };
     if (index > -1) {
-      state.items[index].quantity = state.items[index].quantity + 1;
       dispatch({
         type: INCREASE_ITEM,
-        payload: state.items,
+        payload: newItem,
       });
     }
   };
