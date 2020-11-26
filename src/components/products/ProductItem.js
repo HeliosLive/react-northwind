@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import CartContext from "../../context/cart/CartContext";
 import { Button, Badge } from "react-bootstrap";
-import { getRoles } from "@testing-library/react";
 
 const ProductItem = ({ product: { id, name, unitPrice, unitsInStock } }) => {
   const cartContext = useContext(CartContext);
