@@ -3,11 +3,15 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import CartContext from "../../../context/cart/CartContext";
+import AuthContext from "../../../context/auth/AuthContext";
 import "./Navbar.css";
+import { LogoutOutlined } from "@ant-design/icons";
 
 const Navbar = (props) => {
   const cartContext = useContext(CartContext);
-  const { items, totalItems } = cartContext;
+  const authContext = useContext(AuthContext);
+  const { totalItems } = cartContext;
+  const { isAuthenticated, user, logout } = authContext;
 
   const { icon, title } = props;
   const history = useHistory();
@@ -27,16 +31,22 @@ const Navbar = (props) => {
       </h2>
       <div className="row">
         {totalItems > 0 ? (
-          <div
-            className="col-sm"
-            onClick={goToCart}
-            style={{ cursor: "pointer" }}
-          >
+          <div onClick={goToCart} style={{ cursor: "pointer", margin: "auto" }}>
             <i className="fas fa-shopping-cart" /> {totalItems}
           </div>
         ) : null}
         <div className="col-sm">
-          <Link to="/about">About</Link>
+          {user && isAuthenticated ? (
+            <div className="row" style={{ cursor: "pointer" }} onClick={logout}>
+              <LogoutOutlined style={{ margin: ".3rem .5rem 0 -2rem" }} />
+              Logout
+            </div>
+          ) : (
+            <div className="row">
+              <Link to="/login">Login</Link>
+              <Link to="/about">About</Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

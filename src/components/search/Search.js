@@ -13,7 +13,7 @@ const Search = () => {
     setFilteredCategories,
     clearFilteredCategories,
   } = categoryContext;
-  const { searchProducts } = productContext;
+  const { searchProducts, setPage } = productContext;
   const { Option } = Select;
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const Search = () => {
   const handleChange = async (value) => {
     await setFilteredCategories(value);
     await searchProducts({ categoryId: value });
+    setPage({ target: { text: 1 } });
   };
 
   return (

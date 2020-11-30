@@ -83,7 +83,7 @@ const ProductChart = (props) => {
   const categoryContext = useContext(CategoryContext);
   const productContext = useContext(ProductContext);
   const { categories } = categoryContext;
-  const { products } = productContext;
+  const { products, searchProducts } = productContext;
   const [ActiveIndex, setActiveIndex] = useState(0);
   const [ResData, setResData] = useState([]);
 
@@ -111,7 +111,7 @@ const ProductChart = (props) => {
     setProductArguments();
 
     // eslint-disable-next-line
-  }, [products]);
+  }, [products, searchProducts]);
 
   const groupBy = (items, key) =>
     items.reduce(
