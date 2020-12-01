@@ -31,7 +31,14 @@ const Navbar = (props) => {
       </h2>
       <div className="row">
         {totalItems > 0 ? (
-          <div onClick={goToCart} style={{ cursor: "pointer", margin: "auto" }}>
+          <div
+            onClick={goToCart}
+            style={{
+              cursor: "pointer",
+              margin: "auto",
+              paddingRight: "3.2rem",
+            }}
+          >
             <i className="fas fa-shopping-cart" /> {totalItems}
           </div>
         ) : null}

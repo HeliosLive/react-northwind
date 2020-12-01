@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import CartContext from "../../context/cart/CartContext";
 import { Button, Badge } from "react-bootstrap";
 
-const ProductItem = ({ product: { id, name, unitPrice, unitsInStock } }) => {
+const ProductItem = ({
+  product: { id, name, unitPrice, unitsInStock, categoryId, supplierId },
+}) => {
   const cartContext = useContext(CartContext);
   const { items, addToCart, decreaseItems, increaseItems } = cartContext;
 
@@ -23,7 +25,13 @@ const ProductItem = ({ product: { id, name, unitPrice, unitsInStock } }) => {
         style={{ height: "4rem" }}
       >
         <h4 className="col-sm">{unitPrice}€</h4>
-        <label className="col-sm">{unitsInStock} items left!</label>
+        <label className="col-sm">
+          {unitsInStock -
+            (items.filter((el) => el.id === id)[0]
+              ? items.filter((el) => el.id === id)[0].quantity
+              : 0)}{" "}
+          items left!
+        </label>
       </div>
       <div>
         <Link to={`/product/${id}`} className="btn btn-dark btn-sm my-1">
@@ -45,25 +53,55 @@ const ProductItem = ({ product: { id, name, unitPrice, unitsInStock } }) => {
           <Button variant="light" disabled>
             {items.filter((el) => el.id === id)[0].quantity}
           </Button>
-          <Badge
-            style={cartButtonStyle}
-            pill
-            variant="success"
-            onClick={() => {
-              increaseItems(id);
-            }}
-          >
-            +1
-          </Badge>
+          {unitsInStock -
+            (items.filter((el) => el.id === id)[0]
+              ? items.filter((el) => el.id === id)[0].quantity
+              : 0) >
+          0 ? (
+            <Badge
+              style={cartButtonStyle}
+              pill
+              variant="success"
+              onClick={() => {
+                increaseItems(id);
+              }}
+            >
+              +1
+            </Badge>
+          ) : (
+            <Badge style={cartButtonStyle} pill disabled={true}>
+              Can't add more!
+            </Badge>
+          )}
         </div>
       ) : (
         <Button
           variant="primary"
+          disabled={
+            unitsInStock -
+              (items.filter((el) => el.id === id)[0]
+                ? items.filter((el) => el.id === id)[0].quantity
+                : 0) ===
+            0
+          }
           onClick={() => {
-            addToCart({ id, name, unitPrice, unitsInStock });
+            addToCart({
+              id,
+              name,
+              unitPrice,
+              unitsInStock,
+              categoryId,
+              supplierId,
+            });
           }}
         >
-          Add to Cart
+          {unitsInStock -
+            (items.filter((el) => el.id === id)[0]
+              ? items.filter((el) => el.id === id)[0].quantity
+              : 0) >
+          0
+            ? "Add to Cart"
+            : "Out of Stock!"}
         </Button>
       )}
     </div>

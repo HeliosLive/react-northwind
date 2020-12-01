@@ -6,6 +6,7 @@ import About from "./components/pages/About";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
 import NotFound from "./components/pages/NotFound";
+import Cart from "./components/cart/Cart";
 import Alert from "./components/pages/shared/Alert";
 import PrivateRoute from "./components/pages/shared/PrivateRoute";
 import Product from "./components/products/Product";
@@ -37,11 +38,8 @@ const App = () => {
                       <Route exact path="/about" component={About} />
                       <Route exact path="/login" component={Login} />
                       <Route exact path="/register" component={Register} />
-                      <PrivateRoute
-                        exact
-                        path="/product/:id"
-                        component={Product}
-                      />
+                      <PrivateRoute exact path="/cart" component={Cart} />
+                      <Route exact path="/product/:id" component={Product} />
                       <Route component={NotFound} />
                     </Switch>
                   </div>

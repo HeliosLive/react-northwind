@@ -27,12 +27,27 @@ const CartState = (props) => {
 
   // Add to Cart
   const addToCart = (params) => {
-    const { id, name, supplierId, categoryId } = params;
+    const {
+      id,
+      name,
+      supplierId,
+      categoryId,
+      unitPrice,
+      unitsInStock,
+    } = params;
     const index = state.items.findIndex((el) => el.id === id);
     if (index > -1) {
       increaseItems(id);
     } else {
-      const newItem = { id, name, supplierId, categoryId, quantity: 1 };
+      const newItem = {
+        id,
+        name,
+        supplierId,
+        categoryId,
+        unitPrice,
+        unitsInStock,
+        quantity: 1,
+      };
       dispatch({
         type: ADD_TO_CART,
         payload: newItem,

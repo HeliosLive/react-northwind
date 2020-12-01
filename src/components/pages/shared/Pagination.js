@@ -1,13 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
-import {
-  Form,
-  Button,
-  FormGroup,
-  FormControl,
-  ControlLabel,
-  Pagination as PaginationCmp
-} from "react-bootstrap";
+import { Form, Pagination as PaginationCmp } from "react-bootstrap";
 import ProductContext from "../../../context/product/ProductContext";
 
 const Pagination = () => {
@@ -15,28 +8,24 @@ const Pagination = () => {
   const {
     page,
     size,
-    SortType,
-    sortDir,
     setPage,
     sizeOptions,
-    sortDirOptions,
-    sortTypeOptions,
     setSize,
-    pageOptions
+    pageOptions,
   } = productContext;
 
   let pageItems = [];
-for (let k = 1; k <= Math.ceil(pageOptions); k++) {
-  pageItems.push(
-    <PaginationCmp.Item key={k} active={k === page}>
-      {k}
-    </PaginationCmp.Item>,
-  );
-}
+  for (let k = 1; k <= Math.ceil(pageOptions); k++) {
+    pageItems.push(
+      <PaginationCmp.Item key={k} active={k === page}>
+        {k}
+      </PaginationCmp.Item>
+    );
+  }
 
   return (
     <div className="d-flex justify-content-between">
-      <PaginationCmp onClick={setPage}>{pageItems}</PaginationCmp> 
+      <PaginationCmp onClick={setPage}>{pageItems}</PaginationCmp>
       <Form.Group>
         <Form.Control as="select" value={size} onChange={setSize}>
           {sizeOptions.map((sizeOpts) => (
