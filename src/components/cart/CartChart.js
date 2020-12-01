@@ -39,10 +39,14 @@ const CartChart = (props) => {
         groupedData[p].forEach((element) => {
           total += element.unitPrice;
         });
+        let count = 0;
+        groupedData[p].forEach((element) => {
+          count += element.quantity;
+        });
         if (selectedCategory) {
           const obj = {
             name: selectedCategory.name,
-            quantity: element.quantity,
+            quantity: count,
             averagePrice: (total / groupedData[p].length)
               .toString()
               .slice(0, 5),
